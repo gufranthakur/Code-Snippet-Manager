@@ -3,7 +3,7 @@ package core.objects;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.fonts.inter.FlatInterFont;
 import core.highlight.LanguageDetector;
-import core.highlight.HighlightTheme;
+import core.highlight.HighlightThemeManager;
 import core.highlight.ThemedSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
@@ -96,7 +96,7 @@ public class Snippet extends JPanel {
         snippetTextArea.setAutoIndentEnabled(true);
         snippetTextArea.setSyntaxEditingStyle(languageDetector.get(getName()));
         snippetTextArea.setPreferredSize(rolledSize);
-        HighlightTheme.get().apply(snippetTextArea);
+        HighlightThemeManager.get().apply(snippetTextArea);
         snippetTextArea.getDocument().addDocumentListener(new SimpleDocumentListener() {
             @Override
             public void updateText() {

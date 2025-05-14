@@ -2,7 +2,7 @@ package core;
 
 import core.customisation.GithubItem;
 import core.customisation.ThemeMenu;
-import core.highlight.GeneralTheme;
+import core.highlight.GeneralThemeManager;
 import core.io.DataManager;
 import core.io.SettingsManager;
 import core.panels.ControlPanel;
@@ -21,7 +21,7 @@ public class App extends JFrame {
 
     private App() {
         this.setTitle("Code Snippet Manager");
-        this.setSize(600, 400);
+        this.setSize(640, 420);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
@@ -61,7 +61,7 @@ public class App extends JFrame {
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException {
         SettingsManager.load();
-        UIManager.setLookAndFeel(GeneralTheme.get());
+        UIManager.setLookAndFeel(GeneralThemeManager.get());
         UIManager.put("List.lockToPositionOnScroll", Boolean.FALSE);
 
         SwingUtilities.invokeLater(() -> {

@@ -2,6 +2,7 @@ package core.customisation;
 
 import core.App;
 import core.io.SettingsManager;
+import core.utils.RuntimeSource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,8 +44,8 @@ public class GeneralThemeSubmenu extends JMenu implements MenuClickHandler {
                 this,
                 "For a theme to change, the app must relaunch.",
                 "Relaunch now?",
-                javax.swing.JOptionPane.OK_CANCEL_OPTION,
-                javax.swing.JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
 
         if (response == JOptionPane.CANCEL_OPTION)
             return;
@@ -52,19 +53,16 @@ public class GeneralThemeSubmenu extends JMenu implements MenuClickHandler {
         try {
             String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
             File jarFile = new File(App.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            ProcessBuilder builder;
-            if (jarFile.getName().endsWith(".jar")) {
-                // Running from a JAR
-                builder = new ProcessBuilder(javaBin, "-jar", jarFile.getPath());
-            } else {
-                // Running from classes (e.g., during development)
-                String classPath = System.getProperty("java.class.path");
-                String className = App.class.getName(); // Main class
-                builder = new ProcessBuilder(javaBin, "-cp", classPath, className);
-            }
-            // this ensures the app saves all data
+
+            ProcessBuilder builder = switch (RuntimeSource.get()) {
+                case JAR -> new ProcessBuilder(javaBin, "-jar", jarFile.getPath());
+                case CLASSES -> new ProcessBuilder(javaBin, "-cp", System.getProperty("java.class.path"), App.class.getName());
+            };
+
+            // this ensures the app saves all data as if closed naturally
             WindowEvent wev = new WindowEvent(app, WindowEvent.WINDOW_CLOSING);
             Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
+
             builder.start();
         } catch (Exception e) {
             e.printStackTrace();

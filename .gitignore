@@ -5,6 +5,7 @@ target/
 snippets_data.json
 settings.json
 dependency-reduced-pom.xml
+package.json
 
 ### IntelliJ IDEA ###
 .idea

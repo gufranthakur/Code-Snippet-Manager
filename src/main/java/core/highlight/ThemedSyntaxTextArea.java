@@ -16,7 +16,7 @@ public class ThemedSyntaxTextArea extends RSyntaxTextArea {
 
     public ThemedSyntaxTextArea(String code) {
         super(code);
-        HighlightTheme.get().apply(this);
+        HighlightThemeManager.get().apply(this);
         editables.add(this);
     }
 

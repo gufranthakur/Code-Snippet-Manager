@@ -6,7 +6,7 @@ import core.io.SettingsManager;
 
 import javax.swing.plaf.basic.BasicLookAndFeel;
 
-public class GeneralTheme {
+public class GeneralThemeManager {
 
     public static BasicLookAndFeel get() {
         return switch (SettingsManager.get().general) {

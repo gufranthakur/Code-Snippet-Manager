@@ -1,6 +1,6 @@
 package core.customisation;
 
-import core.highlight.HighlightTheme;
+import core.highlight.HighlightThemeManager;
 import core.highlight.ThemedSyntaxTextArea;
 import core.io.SettingsManager;
 import org.fife.ui.rsyntaxtextarea.Theme;
@@ -35,7 +35,7 @@ public class HighlightSubmenu extends JMenu implements MenuClickHandler {
     @Override
     public void click(ClickableItem item) {
         SettingsManager.get().highlight = item.name;
-        Theme theme = HighlightTheme.get();
+        Theme theme = HighlightThemeManager.get();
         ThemedSyntaxTextArea.setTheme(theme);
         redrawSelectionStatus();
     }

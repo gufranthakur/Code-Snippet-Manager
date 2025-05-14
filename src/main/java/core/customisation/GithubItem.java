@@ -17,7 +17,7 @@ public class GithubItem extends JMenu {
                 try {
                     Desktop.getDesktop().browse(URI.create("https://github.com/gufranthakur/Code-Snippet-Manager"));
                 } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                    ex.printStackTrace();
                 }
             }
         });
